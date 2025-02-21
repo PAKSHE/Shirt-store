@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ร้านขายเสื้อผ้า</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+     
+     *{
+      font-family: "Kanit", serif;
+      font-weight: 600;
+      font-style: normal;
+     }
+
+     .product-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+     }
+
+     .product-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+     }
+     
+     </style>
+
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-blue-900 text-white py-4">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <h1 class="text-3xl font-bold">ร้านขายเสื้อผ้า</h1>
+            <nav>
+                <a href="index.html" class="text-white hover:text-gray-200 mx-2">หน้าหลัก</a>
+                <a href="cart.html" class="text-white hover:text-gray-200 mx-2">ตะกร้าสินค้า (<span id="cart-count">0</span>)</a>
+                <a href="login.html" class="text-white hover:text-gray-200 mx-2">login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <article class="bg-white p-4 rounded-lg shadow-md product-card">
+                <img src="img/s-l960.webp" alt="เสื้อเชิ้ตสีนํ้าตาล" class="w-full h-50 object-cover rounded-t-lg">
+                <h2 class="text-xl font-semibold mt-4">เสื้อเชิ้ตสีนํ้าตาล</h2>
+                <p class="text-lg text-blue-900 font-medium mt-2">150.00 THB</p>
+                <button onclick="addToCart('เสื้อเชิ้ตสีนํ้าตาล', 150.00)" 
+                    class="mt-4 bg-blue-900 text-white py-2 px-4 rounded hover:bg-blue-700">เพิ่มลงตะกร้า</button>
+            </article>
+            
+            <article class="bg-white p-4 rounded-lg shadow-md product-card">
+                <img src="img/s-l960 (1).webp" alt="เสื้อเชิ้ตสีดำ" class="w-full h-50 object-cover rounded-t-lg">
+                <h2 class="text-xl font-semibold mt-4">เสื้อเชิ้ตสีดำ</h2>
+                <p class="text-lg text-blue-900 font-medium mt-2">150.00 THB</p>
+                <button onclick="addToCart('เสื้อเชิ้ตสีดำ', 150.00)" 
+                    class="mt-4 bg-blue-900 text-white py-2 px-4 rounded hover:bg-blue-700">เพิ่มลงตะกร้า</button>
+            </article>
+
+            <article class="bg-white p-4 rounded-lg shadow-md product-card">
+              <img src="img/s-l960 (2).webp" alt="เสื้อสีเขียวแก่" class="w-full h-50 object-cover rounded-t-lg">
+              <h2 class="text-xl font-semibold mt-4">เสื้อสีเขียวแก่</h2>
+              <p class="text-lg text-blue-900 font-medium mt-2">150.00 THB</p>
+              <button onclick="addToCart('เสื้อสีเขียวแก่', 150.00)" 
+                  class="mt-4 bg-blue-900 text-white py-2 px-4 rounded hover:bg-blue-700">เพิ่มลงตะกร้า</button>
+          </article>
+
+          <article class="bg-white p-4 rounded-lg shadow-md product-card">
+            <img src="img/s-l960 (3).webp" alt="เสื้อสีขาว" class="w-full h-50 object-cover rounded-t-lg">
+            <h2 class="text-xl font-semibold mt-4">เสื้อสีขาว</h2>
+            <p class="text-lg text-blue-900 font-medium mt-2">150.00 THB</p>
+            <button onclick="addToCart('เสื้อสีขาว', 150.00)" 
+                class="mt-4 bg-blue-900 text-white py-2 px-4 rounded hover:bg-blue-700">เพิ่มลงตะกร้า</button>
+        </article>
+
+        <article class="bg-white p-4 rounded-lg shadow-md product-card">
+          <img src="img/s-l960 (4).webp" alt="เสื้อสีนํ้าเงิน" class="w-full h-50 object-cover rounded-t-lg">
+          <h2 class="text-xl font-semibold mt-4">เสื้อสีนํ้าเงิน</h2>
+          <p class="text-lg text-blue-900 font-medium mt-2">150.00 THB</p>
+          <button onclick="addToCart('เสื้อสีนํ้าเงิน', 150.00)" 
+              class="mt-4 bg-blue-900 text-white py-2 px-4 rounded hover:bg-blue-700">เพิ่มลงตะกร้า</button>
+      </article>
+
+      <article class="bg-white p-4 rounded-lg shadow-md product-card">
+        <img src="img/s-l960 (5).webp" alt="เสื้อสีเขียว" class="w-full h-50 object-cover rounded-t-lg">
+        <h2 class="text-xl font-semibold mt-4">เสื้อสีเขียว</h2>
+        <p class="text-lg text-blue-900 font-medium mt-2">150.00 THB</p>
+        <button onclick="addToCart('เสื้อสีเขียว', 150.00)" 
+            class="mt-4 bg-blue-900 text-white py-2 px-4 rounded hover:bg-blue-700">เพิ่มลงตะกร้า</button>
+    </article>
+
+    
+            
+
+        </section>
+    </main>
+
+    <script src="./script/cart.js"></script>
+   
+</body>
+</html>

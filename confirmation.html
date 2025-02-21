@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+       
+       * {
+           font-family: "Kanit", serif;
+           font-weight: 600;
+           font-style: normal;
+       }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-blue-900 text-white py-4">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <h1 class="text-3xl font-bold"></h1>
+            <nav>
+                <a href="index.html" class="text-white hover:text-gray-200 mx-2">Home</a>
+                <a href="cart.html" class="text-white hover:text-gray-200 mx-2">ตะกร้าสินค้า</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-8">
+        <section class="bg-white p-8 rounded-lg shadow-lg max-w-lg mx-auto">
+            <h1 class="text-4xl font-bold text-red-600 text-center mb-4">Thank you!</h1>
+            <h2 class="text-3xl font-semibold mb-4 text-green-600 text-center">ขอบคุณสำหรับการซื้อของคุณ!</h2>
+            
+            <!-- ข้อมูลใบเสร็จในรูปแบบตาราง -->
+            <div id="order-details" class="mb-4">
+                <!-- ข้อมูลใบเสร็จจะแสดงที่นี่ -->
+            </div>
+
+            <!-- ตารางรายการสินค้า -->
+            <div id="cart-items" class="overflow-x-auto">
+                <table class="min-w-full table-auto border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-700">
+                            <th class="px-4 py-2 border">ชื่อสินค้า</th>
+                            <th class="px-4 py-2 border">จำนวน</th>
+                            <th class="px-4 py-2 border">ราคา</th>
+                            <th class="px-4 py-2 border">ยอดรวม</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items-body">
+                        <!-- รายการสินค้าจะแสดงที่นี่ -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ปุ่มกลับหน้าแรก -->
+            <a href="index.html" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-500 transition duration-200 block mt-6 text-center">Back to Home</a>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderOrderDetails();
+            renderCartItems();
+        });
+
+        function renderOrderDetails() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            let orderDetails = `
+                <table class="min-w-full table-auto border-collapse mb-6">
+                    <tbody>
+                        <tr>
+                            <td class="px-4 py-2 border font-semibold">หมายเลขใบเสร็จ:</td>
+                            <td class="px-4 py-2 border">#${Math.floor(Math.random() * 100000000)}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 border font-semibold">วันที่:</td>
+                            <td class="px-4 py-2 border">${new Date().toLocaleDateString()}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 border font-semibold">ยอดรวม:</td>
+                            <td class="px-4 py-2 border">${total.toFixed(2)} THB</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 border font-semibold">วิธีการชำระเงิน:</td>
+                            <td class="px-4 py-2 border">บัตรเครดิต</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+            document.getElementById("order-details").innerHTML = orderDetails;
+        }
+
+        function renderCartItems() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const cartItemsContainer = document.getElementById("cart-items-body");
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = "<tr><td colspan='4' class='text-center px-4 py-2 border'>ไม่มีสินค้าภายในตะกร้า</td></tr>";
+                return;
+            }
+
+            let cartItemsHTML = "";
+            cart.forEach(item => {
+                let itemTotal = item.price * item.quantity;
+                cartItemsHTML += `
+                    <tr class="bg-gray-50">
+                        <td class="px-4 py-2 border">${item.name}</td>
+                        <td class="px-4 py-2 border">${item.quantity}</td>
+                        <td class="px-4 py-2 border">${item.price.toFixed(2)} THB</td>
+                        <td class="px-4 py-2 border">${itemTotal.toFixed(2)} THB</td>
+                    </tr>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = cartItemsHTML;
+        }
+    </script>
+</body>
+</html>
